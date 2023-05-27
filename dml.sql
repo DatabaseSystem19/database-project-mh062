@@ -40,10 +40,11 @@ where report_id = 201;
 insert into dept (dept_id, dept_name)
 values (11, 'New Department');
 select * from dept where dept_id = 11;
-
+--delete particular attribute
 delete from dept where dept_id = 10;
 
 -- duration more than 8 hours people's dept name
+
 select d.dept_name
 from dept d
 join job jt ON d.dept_id = jt.dept_id
@@ -81,25 +82,25 @@ select dept_name from dept where dept_id = ( select dept_id from job where job_i
 
    --union , intersect , except
    
- SELECT dept_id FROM job
-UNION
-SELECT job_id FROM leave;
+ select dept_id from job
+union
+select job_id from leave;
 
- SELECT dept_id FROM job
+ select dept_id from job
 intersect
-SELECT job_id FROM leave;
+select job_id from leave;
 
-SELECT job_title FROM job
-EXCEPT
-SELECT dept_name FROM dept;
+select job_title from job
+except
+select dept_name from dept;
 
 
 --aggregate function
-SELECT COUNT(*) AS total_employees FROM employee;
-SELECT SUM(salary) AS total_salary FROM attendance_report;
-SELECT AVG(age) AS average_age FROM employee;
-SELECT MIN(duration) AS min_duration FROM duty_duration;
-SELECT MAX(salary) AS max_salary FROM attendance_report;
+select count(*) as total_employees from employee;
+select sum(salary) as total_salary from attendance_report;
+select avg(age) as average_age from employee;
+select min(duration) as min_duration from duty_duration;
+select max(salary) as max_salary from attendance_report;
 
 
 -- group by & having
@@ -107,43 +108,43 @@ SELECT MAX(salary) AS max_salary FROM attendance_report;
 
 -- Query to get the total labor hours per department
 
-SELECT d.dept_name, SUM(dd.duration) AS total_labor_hours
-FROM dept d
+select d.dept_name, SUM(dd.duration) as total_labor_hours
+from dept d
 JOIN job j ON d.dept_id = j.dept_id
 JOIN duty_duration dd ON j.job_id = dd.job_id
 GROUP BY d.dept_name;
 
-SELECT dept_id, COUNT(*) AS total_employees
-FROM dept
+select dept_id, COUNT(*) as total_employees
+from dept
 GROUP BY dept_id having min(dept_id)>5;
 
 
 
 --string operation
 
-SELECT dept_name
-FROM dept
-WHERE dept_name LIKE '%e%r%';
+select dept_name
+from dept
+where dept_name LIKE '%e%r%';
 
 
-SELECT dept_name
-FROM dept
-WHERE dept_name LIKE '%er%';
+select dept_name
+from dept
+where dept_name LIKE '%er%';
 
 
-SELECT dept_name
-FROM dept
-WHERE dept_name LIKE '%e';
+select dept_name
+from dept
+where dept_name LIKE '%e';
 
 
-SELECT dept_name
-FROM dept
-WHERE dept_name LIKE 'F%';
+select dept_name
+from dept
+where dept_name LIKE 'F%';
 
 
-SELECT dept_name
-FROM dept
-WHERE dept_name LIKE '--r';
+select dept_name
+from dept
+where dept_name LIKE '--r';
 
 --join
 
@@ -151,11 +152,17 @@ select * from dept natural join employee where employee_id=3;
 
 select job_title,dept_id from job join dept using(dept_id);
 
+-- and or not
+
+SELECT * FROM employee WHERE gender = 'male' AND age > 30;
+SELECT * FROM employee WHERE employee_id = 1 OR employee_id = 3;
+SELECT * FROM employee WHERE employee_id <> 4;
+
 
 --views
 
 drop view employee_details;
-CREATE VIEW employee_details AS
+create view employee_details as
 select employee_id,e_name from employee;
 select * from employee_details;
 
